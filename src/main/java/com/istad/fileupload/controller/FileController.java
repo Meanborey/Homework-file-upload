@@ -1,9 +1,10 @@
 package com.istad.fileupload.controller;
-
 import com.istad.fileupload.model.FileResponse;
 import com.istad.fileupload.service.FileService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,20 +12,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 
 @RestController
-@AllArgsConstructor
+
 @RequestMapping("/files")
 public class FileController {
-    private final FileService fileService;
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> uploadFile(@RequestParam("files") MultipartFile file) throws IOException {
-        String fileName = fileService.uploadFile(file);
-        return ResponseEntity.ok(new FileResponse<>(
-                "Successfully",
-                200,
-                fileName
-        ));
+    @Autowired
+    private FileService fileService;
+
+    @Value("${project.image}")
+    private String path;
+
+    @PostMapping("/upload")
+    public ResponseEntity<?>fileUpload(@RequestParam("file")MultipartFile file){
+        String filename = null;
+        try{
+            filename= this.fileService.uploadFile(path,file);
+        }catch (Exception ex){
+            return new ResponseEntity<>(new FileResponse("file not fount",null), HttpStatus.OK);
+        }
+       return new ResponseEntity<>(new FileResponse(filename,"file is success"),HttpStatus.OK);
+
+
     }
+
 }
