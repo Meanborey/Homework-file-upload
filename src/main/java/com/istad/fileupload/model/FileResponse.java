@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FileResponse <T>{
+public class FileResponse{
      String message;
      String fileName;
 

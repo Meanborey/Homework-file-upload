@@ -1,7 +1,6 @@
 package com.istad.fileupload.controller;
 import com.istad.fileupload.model.FileResponse;
 import com.istad.fileupload.service.FileService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
-
 @RequestMapping("/files")
 public class FileController {
     @Autowired
@@ -24,7 +22,7 @@ public class FileController {
     private String path;
 
     @PostMapping("/upload")
-    public ResponseEntity<?>fileUpload(@RequestParam("file")MultipartFile file){
+    public ResponseEntity<?>fileUpload(@RequestParam ("file") MultipartFile file){
         String filename = null;
         try{
             filename= this.fileService.uploadFile(path,file);
