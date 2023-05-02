@@ -21,6 +21,7 @@ public class FileServiceImpl implements FileService {
         String IDrandoms = UUID.randomUUID().toString();
         assert name != null;
         String f_name=IDrandoms.concat(name.substring(name.lastIndexOf("")));
+
         String f_path = path + File.separator+ f_name;
         File f_img = new File(path);
         if (!f_img.exists()){

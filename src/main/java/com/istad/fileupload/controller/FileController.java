@@ -26,7 +26,7 @@ public class FileController {
         System.out.println(file);
         String filename = null;
         try{
-            filename= this.fileService.uploadFile(path,file);
+            filename= "http://localhost:8080/"+this.fileService.uploadFile(path,file);
         }catch (Exception ex){
             return new ResponseEntity<>(new FileResponse("file not fount",null), HttpStatus.OK);
         }
