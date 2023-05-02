@@ -18,11 +18,12 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @Value("${project.image}")
+    @Value("${value.file}")
     private String path;
 
     @PostMapping("/upload")
-    public ResponseEntity<?>fileUpload(@RequestParam ("file") MultipartFile file){
+    public ResponseEntity<?>fileUpload(@RequestParam("file") MultipartFile file){
+        System.out.println(file);
         String filename = null;
         try{
             filename= this.fileService.uploadFile(path,file);
